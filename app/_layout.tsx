@@ -3,10 +3,9 @@ import React from "react";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
-import { TouchableHighlight, View } from "react-native";
-import { NotificationsIcon, SearchIcon } from "@/assets/icons";
 import { HeaderRight } from "@/components/HeaderRight";
 import { CustomDrawerContent } from "@/components/CustomDrawerContent";
+import { Stack } from "expo-router";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -15,7 +14,7 @@ export default function TabLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer drawerContent={(props) => <CustomDrawerContent {...props} />}>
         <Drawer.Screen
-          name="index" // This is the name of the page and must match the url from root
+          name="index"
           options={{
             drawerLabel: "День",
             title: "Февраль, 19",
@@ -23,7 +22,7 @@ export default function TabLayout() {
           }}
         />
         <Drawer.Screen
-          name="week" // This is the name of the page and must match the url from root
+          name="week"
           options={{
             drawerLabel: "Неделя",
             title: "Февраль",
@@ -31,11 +30,17 @@ export default function TabLayout() {
           }}
         />
         <Drawer.Screen
-          name="month" // This is the name of the page and must match the url from root
+          name="month"
           options={{
             drawerLabel: "Месяц",
             title: "Февраль",
             headerRight: () => <HeaderRight />,
+          }}
+        />
+        <Drawer.Screen
+          name="notifications"
+          options={{
+            title: "Уведомления",
           }}
         />
       </Drawer>
