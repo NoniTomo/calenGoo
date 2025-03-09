@@ -18,7 +18,7 @@ export default function TabLayout() {
           name="index" // This is the name of the page and must match the url from root
           options={{
             drawerLabel: "День",
-            title: "Февраль",
+            title: "Февраль, 19",
             headerRight: () => <HeaderRight />,
           }}
         />
@@ -34,7 +34,7 @@ export default function TabLayout() {
           name="month" // This is the name of the page and must match the url from root
           options={{
             drawerLabel: "Месяц",
-            title: "Февраль. 19",
+            title: "Февраль",
             headerRight: () => <HeaderRight />,
           }}
         />
