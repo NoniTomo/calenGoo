@@ -1,23 +1,38 @@
+import { DateProviderModel } from "@/model/DateModel";
+import { EventProviderModel } from "@/model/EventModel";
 import React from "react";
-
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import { HeaderRight } from "@/components/HeaderRight";
 import { CustomDrawerContent } from "@/components/CustomDrawerContent";
-import { Stack } from "expo-router";
+import { useDayPageViewModel } from "@/viewModel/useDayPageViewModel";
+import { useMonthPageViewModel } from "@/viewModel/useMonthPageViewModel";
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
+  return (
+    <DateProviderModel>
+      <EventProviderModel>
+        <DrawerLayout />
+      </EventProviderModel>
+    </DateProviderModel>
+  );
+}
+
+export const DrawerLayout = () => {
+  const day = useDayPageViewModel();
+  const month = useMonthPageViewModel();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Drawer drawerContent={(props) => <CustomDrawerContent {...props} />}>
+      <Drawer
+        screenOptions={{ sceneStyle: { backgroundColor: "#fcfaf2" } }}
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+      >
         <Drawer.Screen
           name="index"
           options={{
             drawerLabel: "День",
-            title: "Февраль, 19",
+            title: `${month.state.monthName || ""}, ${day.state.day || ""}`,
             headerRight: () => <HeaderRight />,
           }}
         />
@@ -25,7 +40,7 @@ export default function TabLayout() {
           name="week"
           options={{
             drawerLabel: "Неделя",
-            title: "Февраль",
+            title: month.state.monthName || "",
             headerRight: () => <HeaderRight />,
           }}
         />
@@ -33,17 +48,18 @@ export default function TabLayout() {
           name="month"
           options={{
             drawerLabel: "Месяц",
-            title: "Февраль",
+            title: month.state.monthName || "",
             headerRight: () => <HeaderRight />,
           }}
         />
         <Drawer.Screen
-          name="notifications"
+          name="(stack)"
           options={{
-            title: "Уведомления",
+            title: "",
+            drawerItemStyle: { display: "none" },
           }}
         />
       </Drawer>
     </GestureHandlerRootView>
   );
-}
+};
